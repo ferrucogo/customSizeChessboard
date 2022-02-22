@@ -10,8 +10,9 @@
 </head>
 <body>
     <!-- <input type="number" name="cells-number" hint="Quanto deve essere grande la scacchiera?"> -->
+    <a>Imposta la <strong>dimensione della scacchiera</strong> trascinando il range slider oppure digitandone la dimensione e premendo il tasto <strong>INVIO</strong></a>
     <input id="rangeInput" type="range" name="chessboardSize" value="3" min="3" max="100" oninput="generateChessBoard(rangeInput.value);amount.value = rangeInput.value" />
-    <input id="amount" type="number" value="3" min="3" max="100" required/>
+    <input id="amount" type="number" name="chessboardSizeInput" value="3" min="3" max="100" required/>
     <div class="chessboard-container">
         <div class="chessboard">
 

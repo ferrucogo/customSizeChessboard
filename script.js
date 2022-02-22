@@ -26,6 +26,7 @@
 // }
 
 function generateChessBoard(size = 3) {
+    let maxValue;
     if (size <= 100 && size >= 3) {
         let dimension = 40;
         let chessboard = document.getElementsByClassName('chessboard')[0]
@@ -49,6 +50,8 @@ function generateChessBoard(size = 3) {
             chessboard.appendChild(document.createElement('br'));
         }
     } else if (size > 100 || size < 3) {
-        alert("Non puoi generare una scacchiera con dimensione " + size + "x" + size + "\nLa dimensione deve essere compresa tra 3 e 100");
+        alert("Non puoi generare una scacchiera con dimensione " + size + "x" + size + "\nLa dimensione deve essere compresa tra 3 e 100\nNe verrà creata una per la sua dimensione massima accettata (100x100)");
+        document.getElementById('amount').value = 100;
+        generateChessBoard(100);
     }
 }
