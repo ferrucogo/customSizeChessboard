@@ -24,8 +24,8 @@
 
 //     }
 // }
-
-function generateChessBoard(size = 3) {
+let cells = [];
+function generateChessBoard(size = 6) {
     let maxValue;
     if (size <= 100 && size >= 3) {
         let dimension = 40;
@@ -44,14 +44,48 @@ function generateChessBoard(size = 3) {
                 } else {
                     chessBox.style.backgroundColor = 'black';
                 }
+                cells.push(chessBox)
                 lineContainer.appendChild(chessBox);
             }
             chessboard.appendChild(lineContainer);
             chessboard.appendChild(document.createElement('br'));
+            
         }
+        requestAnimationFrame(() => animate(0))
+        // requestAnimationFrame(() => animate(time + 1))
     } else if (size > 100 || size < 3) {
         alert("Non puoi generare una scacchiera con dimensione " + size + "x" + size + "\nLa dimensione deve essere compresa tra 3 e 100\nNe verrà creata una per la sua dimensione massima accettata (100x100)");
         document.getElementById('amount').value = 100;
         generateChessBoard(100);
     }
+
+
+}
+
+
+function animate(time) {
+
+    realtime = time / 60
+
+    let index = Math.floor(realtime) % cells.length;
+
+    // if (cells[index - 1]) {
+    //     cells[index - 1].style.backgroundColor = '';
+    // } else {
+    //     cells[cells.length - 1].style.backgroundColor = '';
+    // }
+
+    // if (cells[index].style.backgroundColor === 'white') {
+    //     cells[index].style.backgroundColor = 'black';
+    // } else if (cells[index].style.backgroundColor === 'black') {
+    //     cells[index].style.backgroundColor = 'white'
+    // }
+    // cells[index].style.backgroundColor = (index + 1) % 2 === 0 ? 'black' : 'white';
+
+
+    
+    cells[index].style.backgroundColor = index + row % 2 ? 'black' : 'white';
+    
+    rowNumber++;
+    requestAnimationFrame(() => animate(time + 1))
 }
