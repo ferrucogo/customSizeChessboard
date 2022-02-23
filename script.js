@@ -31,6 +31,7 @@ function generateChessBoard(size = 6) {
         let dimension = 40;
         let chessboard = document.getElementsByClassName('chessboard')[0]
         chessboard.innerHTML = '';
+        cells = [];
         for (let i = 0; i < size; i++) {
             let lineContainer = document.createElement('div');
             for (let j = 0; j < size; j++) {
@@ -38,6 +39,9 @@ function generateChessBoard(size = 6) {
                 chessBox.className = 'chess-box';
                 chessBox.style.width = dimension / size + 'vw';
                 chessBox.style.height = dimension / size + 'vw';
+
+                chessBox.style.zIndex = (i + j) % 2 === 0 ? '0' : '1';
+
                 lineContainer.style.height = dimension / size + 'vw';
                 if ((i + j) % 2 === 0) {
                     chessBox.style.backgroundColor = 'white';
@@ -51,8 +55,11 @@ function generateChessBoard(size = 6) {
             chessboard.appendChild(document.createElement('br'));
             
         }
-        requestAnimationFrame(() => animate(0))
-        // requestAnimationFrame(() => animate(time + 1))
+        //requestAnimationFrame(() => animate(0))
+        //requestAnimationFrame(() => animateGradientColor(0));
+        //requestAnimationFrame(() => animateGradientOpacity(0));
+        requestAnimationFrame(() => rotateCells(0));
+        
     } else if (size > 100 || size < 3) {
         alert("Non puoi generare una scacchiera con dimensione " + size + "x" + size + "\nLa dimensione deve essere compresa tra 3 e 100\nNe verrà creata una per la sua dimensione massima accettata (100x100)");
         document.getElementById('amount').value = 100;
@@ -88,4 +95,30 @@ function animate(time) {
     
     rowNumber++;
     requestAnimationFrame(() => animate(time + 1))
+}
+
+function animateGradientColor(time) {
+    let index = time % cells.length;
+    let colorStep = 255 / cells.length;
+    let red = colorStep * (index + 1);
+    cells[index].style.backgroundColor = 'rgb(' + red +',0,0)';
+    requestAnimationFrame(() => animateGradientColor(time + 1));
+}
+
+function animateGradientOpacity(time) {
+    let index = time % cells.length;
+    let opacity = 1 / cells.length;
+    cells[index].style.backgroundColor = 'rgb(255,0,0,' + opacity * index + ')';
+    requestAnimationFrame(() => animateGradientOpacity(time + 1));
+}
+
+function rotateCells(time) {
+    realtime = time / 10;
+    let angle = 360 / 10;
+
+    for (const cell of cells) {
+        cell.style.transform = 'rotate(' + (angle * realtime) + 'deg)';
+    }
+    
+    requestAnimationFrame(() => rotateCells(time + 1));
 }

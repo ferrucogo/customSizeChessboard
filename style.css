@@ -23,6 +23,7 @@ html, body {
 
 .chess-box {
     display: inline-block;
+    position: relative;
 }
 
 .chessbox-container {
